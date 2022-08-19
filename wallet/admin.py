@@ -1,4 +1,4 @@
-from faulthandler import cancel_dump_traceback_later
+
 from shutil import ReadError
 from django.contrib import admin
 from .models  import Account, Receipt, Reward, User,Wallet,Currency,Transaction,Card,Notifications,ThirdParty,Receipt,Loan
