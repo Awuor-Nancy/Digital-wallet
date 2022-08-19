@@ -8,9 +8,17 @@ class UserAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(User, UserAdmin)
+list_display = ('email', 'firstName', 'lastName', 'gender','sex')
+search_fields = ('email', 'firstName', 'lastName', 'gender','sex')
+
 admin.site.register(Wallet)
+
+
 admin.site.register(Currency)
+
+
 admin.site.register(Transaction)
+
 admin.site.register(Receipts)
 admin.site.register(ThirdParty)
 admin.site.register(Notifications)
