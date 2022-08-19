@@ -37,15 +37,11 @@ class Reward(models.Model):
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES,null=True)  
     bonus=models.CharField(max_length=25, null=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,null=True)
     date_created = models.DateTimeField(default=timezone.now)
     nationality=models.CharField(max_length=20,null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/',null=True)
 
 
-
-    def __str__(self):
-        return self.name
 class Currency(models.Model):
     amount=models.IntegerField()
     country_of_origin=models.CharField(max_length=24,null=True) 
@@ -61,9 +57,6 @@ class Wallet(models.Model):
     pin=models.TextField(max_length=6,null=True)
 
 
-
-    def __str__(self):
-        return self.name
 class Account(models.Model):
     wallet=models.ForeignKey(Wallet,on_delete=models.CASCADE, related_name ='Account_wallet')
     account_number=models.IntegerField(default=0)
@@ -88,7 +81,6 @@ class Transaction(models.Model):
     transaction_type=models.CharField(max_length=10, choices=TRANSACTION_CHOICES,null=True)
     transaction_charge=models.IntegerField()
     transaction_date=models.DateTimeField(default = timezone.now)
-    receipt=models.ForeignKey('Receipts',on_delete=models.CASCADE, related_name='Transaction_receipt')
     original_account=models.ForeignKey('Account', on_delete=models.CASCADE, related_name='Transaction_original_account')
     destination_account=models.ForeignKey('Account', on_delete=models.CASCADE, related_name='Transaction_destination_account')
 
@@ -131,7 +123,7 @@ class Notifications(models.Model):
     recipient=models.ForeignKey('User', on_delete=models.CASCADE, related_name ='Notifications_recipient')  
 
 
-class Receipts(models.Model):
+class Receipt(models.Model):
     receipt_type=models.CharField(max_length=25, null=True)
     receipt_date=models.DateTimeField(default=timezone.now)
     recipt_number=models.CharField(max_length=25, null=True)
