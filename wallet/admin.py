@@ -25,8 +25,8 @@ admin.site.register(Wallet, WalletAdmin)
 
 
 class ReceiptAdmin(admin.ModelAdmin):
- list_display = ('receipt_type','receipt_date','transaction')
- search_fields = ('receipt_type','receipt_date','transaction')
+ list_display = ('receipt_date','transaction')
+ search_fields = ('receipt_date','transaction')
 admin.site.register(Receipt, ReceiptAdmin)
  
 
