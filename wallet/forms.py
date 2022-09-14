@@ -2,6 +2,7 @@
 from django import forms
 from .models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, User, Wallet,Transaction
 
+
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
