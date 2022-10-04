@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="background-color:aquamarine;">
 
+    <table class="table" style="background-color:rgb(157, 167, 167); margin:40px; border: 10px solid;height:10rem; width:60%; ">
+       
     <h1>Wallet table</h1>
+    
+        <td>Currency</td>
+        <td>Balance</td>
+        <td>Amount</td>
+        <td>Status</td>
+        <td>Sex</td>
+    </th>
 
-    {% for wallet in wallets %}
+   <tr>{% for wallet in wallets %}</tr> 
 
-    <table>
-        <th>{{wallet.currency}}</th>
+        <td>{{wallet.currency}}</td>
         <td>{{wallet.balance}}</td>
         <td>{{wallet.amount}}</td>
         <td>{{wallet.status}}</td>

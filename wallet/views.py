@@ -17,12 +17,16 @@ def register_User(request):
             form = UserRegistrationForm()
     return render(request, "wallet/register_customer.html", {'form': form})
 
+# user profile_pictures
+def userProfile(request, id):
+    user = User.objects(id=id)
+    return render(request, "wallet/user_profile.html", {'user': user})
+
               # Querryng data
 def listUser (request):
     users = User.objects.all()
     return render(request, 'wallet/customer_list.html', {'users': users})
-    
-      
+
 def registerWallet(request):
     if request.method == "POST":
         form = WalletRegistrationForm(request.POST)
@@ -31,6 +35,20 @@ def registerWallet(request):
     else:
           form = WalletRegistrationForm()
     return render(request, "wallet/register_wallet.html", {'form': form})
+
+def editUser(request, id):
+    user=User.objects.get(id=id)
+    if request.method == 'POST':
+        form= User.registrationForm(request.post)
+        instance = User.objects
+
+        if form.is_valid():
+            form.save()
+            return redirect("userProfile" id=userId)
+
+        else:
+            form=UserRegistrationForm(instance=User)
+            return render(request, "wallet/editUser.html",{'form':form})
 
            # Querryng data
 def listWallet (request):

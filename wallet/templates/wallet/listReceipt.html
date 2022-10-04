@@ -8,12 +8,17 @@
 </head>
 <body>
 
-    <h1>Receipt table</h1>
+    <h1>Receipt Number</h1>
+    <th>Receipt Date</th>
+    <th>Receipt Transaction</th>
+    <th>Total Amount</th>
+    <th>Receipt Email</th>
 
     {% for receipt in receipts %}
 
     <table>
-        <th>{{receipt.receipt_number}}</th>
+
+        <td>{{receipt.receipt_number}}</td>
         <td>{{receipt.receipt_date}}</td>
         <td>{{receipt.transaction}}</td>
         <td>{{receipt.email}}</td>
