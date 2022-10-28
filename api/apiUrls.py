@@ -18,11 +18,11 @@ router.register(r"thirdparty", ThirdPartyViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("transfer/", AccountWithdrawView.as_view(), name="withdraw-view"),
+    path("withdraw/", AccountWithdrawView.as_view(), name="withdraw-view"),
     path("deposit/", AccountDepositView.as_view(), name="deposit-view"),
     path("transfer/", AccountTransferView.as_view(), name="transfer-view"),
-    path("transfer/", AccountRequestLoanView.as_view(), name="requestloan-view"),
-    path("transfer/", AccountRepayLoanView.as_view(), name="repayloan-view"),
-    path("transfer/", AccountBuyAirtimeView.as_view(), name="buyairtime-view"),
+    path("requestloan/", AccountRequestLoanView.as_view(), name="requestloan-view"),
+    path("repayloan/", AccountRepayLoanView.as_view(), name="repayloan-view"),
+    path("buyairtime/", AccountBuyAirtimeView.as_view(), name="buyairtime-view"),
     
 ] 

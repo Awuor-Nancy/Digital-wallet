@@ -2,7 +2,7 @@
 # Create your views here.
 from api.serializer import AccountSerializer, CardSerializer, CurrencySerializer, LoanSerializer, NotificationsSerializer, ReceiptSerializer, RewardSerializer, ThirdPartySerializer, TransactionSerializer, UserSerializer, WalletSerializer
 from rest_framework import viewsets, views
-from wallet.models import Account, User
+from wallet.models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, Transaction, User, Wallet
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -12,43 +12,43 @@ class UserViewSet(viewsets.modelViewSet):
     serializer_class = UserSerializer
 
 class WalletViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
 
 class CardViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Card.objects.all()
     serializer_class = CardSerializer
 
 class AccountViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
 class CurrencyViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
 class TransactionsViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
 class RewardViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Reward.objects.all()
     serializer_class = RewardSerializer
 
 class NotificationsViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Notifications.objects.all()
     serializer_class = NotificationsSerializer
 
 class LoanViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Loan.objects.all()
     serializer_class = LoanSerializer
 
 class ThirdPartyViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = ThirdParty.objects.all()
     serializer_class = ThirdPartySerializer
 
 class ReceiptViewSet(viewsets.modelViewSet):
-    queryset = User.objects.all()
+    queryset = Receipt.objects.all()
     serializer_class = ReceiptSerializer
 
 
@@ -93,7 +93,7 @@ class AccountWithdrawView(views.APIView):
        except ObjectDoesNotExist:
            return Response("Account Not Found", status=404)
       
-       message, status = account.deposit(amount)
+       message, status = account.withdraw(amount)
        return Response(message, status=status)
 
 
@@ -115,7 +115,7 @@ class AccountTransferView(views.APIView):
        except ObjectDoesNotExist:
            return Response("Account Not Found", status=404)
       
-       message, status = account.deposit(amount)
+       message, status = account.transfer(amount)
        return Response(message, status=status)
 
 
@@ -137,7 +137,7 @@ class AccountRequestLoanView(views.APIView):
        except ObjectDoesNotExist:
            return Response("Account Not Found", status=404)
       
-       message, status = account.deposit(amount)
+       message, status = account.requestLoan(amount)
        return Response(message, status=status)
 
 
@@ -159,7 +159,7 @@ class AccountRepayLoanView(views.APIView):
        except ObjectDoesNotExist:
            return Response("Account Not Found", status=404)
       
-       message, status = account.deposit(amount)
+       message, status = account.repayLoan(amount)
        return Response(message, status=status)
 
 
@@ -181,5 +181,5 @@ class AccountBuyAirtimeView(views.APIView):
        except ObjectDoesNotExist:
            return Response("Account Not Found", status=404)
       
-       message, status = account.deposit(amount)
+       message, status = account.buyAirtime(amount)
        return Response(message, status=status)
