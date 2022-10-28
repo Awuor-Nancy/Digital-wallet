@@ -28,6 +28,6 @@ urlpatterns = [
                      path("thirdpartys/", listThirdparty, name = "thirdParty_list"),
                        path("currencys/", listCurrency, name = "currency_list"),
                          path("notifications/", listNotification, name = "notification_list"),
-                         path
+                        
                      
 ]

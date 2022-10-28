@@ -68,6 +68,9 @@ class Account(models.Model):
     account_type=models.CharField(max_length=20,null=True, choices= ACCOUNT_CHOICE)
     balance=models.IntegerField()
     name=models.CharField(max_length=20,null=True)
+
+
+    
     
 
 
@@ -126,11 +129,11 @@ class Notifications(models.Model):
 class Receipt(models.Model):
     
     receipt_date=models.DateTimeField(default=timezone.now)
-    recipt_number=models.CharField(max_length=25, null=True)
+    receipt_number=models.CharField(max_length=25, null=True)
     account=models.ForeignKey(Account, on_delete=models.CASCADE, related_name ='Receipts_account')
     total_Amount=models.IntegerField(default=0)
     transaction=models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name ='Receipts_transaction', null=True)
-    recipt_File=models.FileField(upload_to='wallet/')
+    receipt_File=models.FileField(upload_to='wallet/')
 
   
 class Loan(models.Model):

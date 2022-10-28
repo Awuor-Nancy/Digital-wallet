@@ -1,5 +1,5 @@
 # from msilib.schema import CustomAction
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import  Loan, Notifications, Receipt, Reward, User,Wallet,Card,Account,Currency,Transaction,ThirdParty
 from .forms import UserRegistrationForm, WalletRegistrationForm,CardRegistrationForm,AccountRegistrationForm,CurrencyRegistrationForm,TransactionRegistrationForm,LoanRegistrationForm,ReceiptRegistrationForm,NotificationsRegistrationForm,ThirdpartyRegistrationForm,RewardRegistrationForm
 
@@ -44,7 +44,7 @@ def editUser(request, id):
 
         if form.is_valid():
             form.save()
-            return redirect("userProfile" id=userId)
+            return redirect("userProfile", id=id)
 
         else:
             form=UserRegistrationForm(instance=User)
