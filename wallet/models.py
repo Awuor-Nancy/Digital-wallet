@@ -2,8 +2,6 @@ from django.db import models
 from email.policy import default
 from operator import ge
 from os import access
-from random import choices
-from site import USER_BASE
 from django.utils import timezone
 from django.db import models
 from django.forms import CharField
@@ -70,7 +68,110 @@ class Account(models.Model):
     name=models.CharField(max_length=20,null=True)
 
 
-    
+    def deposit(self, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+       else:
+           self.balance += amount
+           self.save()
+           message = f"You have deposited {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
+
+
+    def transfer(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
+
+
+    def withdraw(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
+
+
+    def requestLoan(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
+
+
+    def repayLoan(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
+
+    def buyAirtime(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           status = 200
+       return message, status
     
 
 
@@ -93,14 +194,13 @@ class Card(models.Model):
     card_number=models.IntegerField()
     ISSUER_CHOICES=(
          ('m', 'Mastercard'),
-    ('v', 'Visacard'),
-    )
+         ('v', 'Visacard'))
     card_type=models.CharField(max_length=10, choices=ISSUER_CHOICES,null=True)
     expiry_date=models.DateTimeField(default=timezone.now)
     STATUS_CHOICES = (
         ('d', 'Debit'),
-        ('c', 'Credit')
-        )
+        ('c', 'Credit'))
+
     card_status= models.CharField(max_length=1, choices=STATUS_CHOICES,null=True)
     cvv_security=models.IntegerField()
     wallet=models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name ='Card_wallet')
