@@ -1,10 +1,10 @@
 from django.db import models
 from email.policy import default
-from operator import ge
-from os import access
+# from operator import ge
+# from os import access
 from django.utils import timezone
 from django.db import models
-from django.forms import CharField
+# from django.forms import CharField
 
 
 # Create your models here.
@@ -60,8 +60,8 @@ class Account(models.Model):
     account_number=models.IntegerField(default=0)
   
     ACCOUNT_CHOICE =  (
-        ('f','Fixed'),
-        ('c','CurrentAccount')
+        ('fixed','Fixed'),
+        ('ccurrAcc','CurrentAccount')
     )
     account_type=models.CharField(max_length=20,null=True, choices= ACCOUNT_CHOICE)
     balance=models.IntegerField()
@@ -99,7 +99,7 @@ class Account(models.Model):
        return message, status
 
 
-    def withdraw(self, destination, amount):
+    def withdraw(self, amount):
        if amount <= 0:
            message =  "Invalid amount"
            status = 403
@@ -111,14 +111,13 @@ class Account(models.Model):
        else:
            self.balance -= amount
            self.save()
-           destination.deposit(amount)
           
-           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           message = f"You have withdrawn {amount}, your new balance is {self.balance}"
            status = 200
        return message, status
 
 
-    def requestLoan(self, destination, amount):
+    def requestLoan(self, amount):
        if amount <= 0:
            message =  "Invalid amount"
            status = 403
@@ -130,14 +129,13 @@ class Account(models.Model):
        else:
            self.balance -= amount
            self.save()
-           destination.deposit(amount)
           
-           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           message = f"You loan request is {amount}, your new balance is {self.balance}"
            status = 200
        return message, status
 
 
-    def repayLoan(self, destination, amount):
+    def repayLoan(self, amount):
        if amount <= 0:
            message =  "Invalid amount"
            status = 403
@@ -149,13 +147,12 @@ class Account(models.Model):
        else:
            self.balance -= amount
            self.save()
-           destination.deposit(amount)
           
-           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           message = f"You loan repayment is {amount}, your new balance is {self.balance}"
            status = 200
        return message, status
 
-    def buyAirtime(self, destination, amount):
+    def buyAirtime(self, amount):
        if amount <= 0:
            message =  "Invalid amount"
            status = 403
@@ -167,12 +164,10 @@ class Account(models.Model):
        else:
            self.balance -= amount
            self.save()
-           destination.deposit(amount)
           
-           message = f"You have transfered {amount}, your new balance is {self.balance}"
+           message = f"You have purchesed artime worth {amount}, your airtime balance is {self.balance}"
            status = 200
-       return message, status
-    
+       return message, status 
 
 
 class Transaction(models.Model):
@@ -181,12 +176,14 @@ class Transaction(models.Model):
     transaction_amount=models.IntegerField()
     TRANSACTION_CHOICES = (
        ('withdraw', 'Withdrawal'),
-       ('depo', 'Deposit'))
+       ('depo', 'Deposit'),
+       ('trans', 'Transfer'))
     transaction_type=models.CharField(max_length=10, choices=TRANSACTION_CHOICES,null=True)
     transaction_charge=models.IntegerField()
     transaction_date=models.DateTimeField(default = timezone.now)
     original_account=models.ForeignKey('Account', on_delete=models.CASCADE, related_name='Transaction_original_account')
     destination_account=models.ForeignKey('Account', on_delete=models.CASCADE, related_name='Transaction_destination_account')
+
 
 class Card(models.Model):
     date_Issued=models.DateTimeField(default=timezone.now)

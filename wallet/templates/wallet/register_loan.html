@@ -12,11 +12,12 @@
 <body>
 
 <h2>Loan Registration</h2>
-<form method="POST">{% csrf_token %}
+   <form method="POST">{% csrf_token %}
 
 <!-- rendering a form -->
-{{ form.as_p }}
-<button type="submit" value="Register" class="btn btn-default">save</button>
+
+  {{ form.as_p }}
+     <button type="submit" value="Register" class="btn btn-default">save</button>
 
 </form> 
     

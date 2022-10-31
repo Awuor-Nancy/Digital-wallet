@@ -1,13 +1,14 @@
 from msilib.schema import Class
 from pyexpat import model
 from rest_framework import serializers
-from wallet.models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, Transaction, User, Wallet
+from .models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, Transaction, User, Wallet
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
      model = User
      fields = ('first_name', 'last_name', 'email', 'password','age', 'address')
+
 
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:

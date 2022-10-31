@@ -8,6 +8,12 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = "__all__"
 
+class TransactionRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = "__all__"
+
+
 class CurrencyRegistrationForm(forms.ModelForm):
     class Meta:
         model = Currency
@@ -50,11 +56,6 @@ class NotificationsRegistrationForm(forms.ModelForm):
 class LoanRegistrationForm(forms.ModelForm):
     class Meta:
         model = Loan
-        fields = "__all__"
-
-class TransactionRegistrationForm(forms.ModelForm):
-    class Meta:
-        model = Transaction
         fields = "__all__"
 
 
