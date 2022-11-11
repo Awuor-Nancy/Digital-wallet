@@ -27,7 +27,7 @@ class CurrencyViewSet(viewsets.modelViewSet):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
 
-class TransactionsViewSet(viewsets.modelViewSet):
+class TransactionViewSet(viewsets.modelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
@@ -50,7 +50,6 @@ class ThirdPartyViewSet(viewsets.modelViewSet):
 class ReceiptViewSet(viewsets.modelViewSet):
     queryset = Receipt.objects.all()
     serializer_class = ReceiptSerializer
-
 
 
 class AccountDepositView(views.APIView):

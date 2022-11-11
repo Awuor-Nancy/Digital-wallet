@@ -9,13 +9,13 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    firstName = models.CharField(max_length = 20, unique=True)
-    lastName = models.CharField(max_length = 20, unique=True)
-    address = models.TextField(max_length = 20, unique=True)
-    phoneNumber = models.TextField(max_length = 15, unique=True)
-    password = models.CharField(max_length = 64, blank=True, null=True) 
-    email = models.EmailField(max_length = 30, unique=True)
-    gender = models.CharField(max_length = 20, blank=True, null=True)
+    firstName = models.CharField(max_length = 100)
+    lastName = models.CharField(max_length = 100)
+    address = models.TextField(max_length = 100, unique=True)
+    phoneNumber = models.TextField(max_length = 100)
+    password = models.CharField(max_length = 100, blank=True, null=True) 
+    email = models.EmailField(max_length = 100, unique=True)
+    gender = models.CharField(max_length = 100, blank=True, null=True)
     sex = (('F','Female'),
        ('M','Male'))
 
@@ -33,16 +33,16 @@ class Reward(models.Model):
             ('M', 'Male'),
             ('F', 'Female'))
 
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,null=True)  
-    bonus=models.CharField(max_length=25, null=True)
+    gender = models.CharField(max_length=100, choices=GENDER_CHOICES,null=True)  
+    bonus=models.CharField(max_length=100, null=True)
     date_created = models.DateTimeField(default=timezone.now)
-    nationality=models.CharField(max_length=20,null=True)
+    nationality=models.CharField(max_length=100,null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/',null=True)
 
 
 class Currency(models.Model):
     amount=models.IntegerField()
-    country_of_origin=models.CharField(max_length=24,null=True) 
+    country_of_origin=models.CharField(max_length=100,null=True) 
   
 
 class Wallet(models.Model):
@@ -51,8 +51,8 @@ class Wallet(models.Model):
     balance=models.IntegerField()
     amount=models.IntegerField()
     date=models.DateTimeField(default=timezone.now)
-    status=models.CharField(max_length=20,null=True)
-    pin=models.TextField(max_length=6,null=True)
+    status=models.CharField(max_length=100,null=True)
+    pin=models.TextField(max_length=100,null=True)
 
 
 class Account(models.Model):
@@ -63,111 +63,111 @@ class Account(models.Model):
         ('fixed','Fixed'),
         ('ccurrAcc','CurrentAccount')
     )
-    account_type=models.CharField(max_length=20,null=True, choices= ACCOUNT_CHOICE)
+    account_type=models.CharField(max_length=100,null=True, choices= ACCOUNT_CHOICE)
     balance=models.IntegerField()
-    name=models.CharField(max_length=20,null=True)
+    name=models.CharField(max_length=100,null=True)
 
 
-    def deposit(self, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
-       else:
-           self.balance += amount
-           self.save()
-           message = f"You have deposited {amount}, your new balance is {self.balance}"
-           status = 200
-       return message, status
+    # def deposit(self, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
+    #    else:
+    #        self.balance += amount
+    #        self.save()
+    #        message = f"You have deposited {amount}, your new balance is {self.balance}"
+    #        status = 200
+    #    return message, status
 
 
-    def transfer(self, destination, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
+    # def transfer(self, destination, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
       
-       elif amount < self.balance:
-           message =  "Insufficient balance"
-           status = 403
+    #    elif amount < self.balance:
+    #        message =  "Insufficient balance"
+    #        status = 403
       
-       else:
-           self.balance -= amount
-           self.save()
-           destination.deposit(amount)
+    #    else:
+    #        self.balance -= amount
+    #        self.save()
+    #        destination.deposit(amount)
           
-           message = f"You have transfered {amount}, your new balance is {self.balance}"
-           status = 200
-       return message, status
+    #        message = f"You have transfered {amount}, your new balance is {self.balance}"
+    #        status = 200
+    #    return message, status
 
 
-    def withdraw(self, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
+    # def withdraw(self, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
       
-       elif amount < self.balance:
-           message =  "Insufficient balance"
-           status = 403
+    #    elif amount < self.balance:
+    #        message =  "Insufficient balance"
+    #        status = 403
       
-       else:
-           self.balance -= amount
-           self.save()
+    #    else:
+    #        self.balance -= amount
+    #        self.save()
           
-           message = f"You have withdrawn {amount}, your new balance is {self.balance}"
-           status = 200
-       return message, status
+    #        message = f"You have withdrawn {amount}, your new balance is {self.balance}"
+    #        status = 200
+    #    return message, status
 
 
-    def requestLoan(self, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
+    # def requestLoan(self, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
       
-       elif amount < self.balance:
-           message =  "Insufficient balance"
-           status = 403
+    #    elif amount < self.balance:
+    #        message =  "Insufficient balance"
+    #        status = 403
       
-       else:
-           self.balance -= amount
-           self.save()
+    #    else:
+    #        self.balance -= amount
+    #        self.save()
           
-           message = f"You loan request is {amount}, your new balance is {self.balance}"
-           status = 200
-       return message, status
+    #        message = f"You loan request is {amount}, your new balance is {self.balance}"
+    #        status = 200
+    #    return message, status
 
 
-    def repayLoan(self, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
+    # def repayLoan(self, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
       
-       elif amount < self.balance:
-           message =  "Insufficient balance"
-           status = 403
+    #    elif amount < self.balance:
+    #        message =  "Insufficient balance"
+    #        status = 403
       
-       else:
-           self.balance -= amount
-           self.save()
+    #    else:
+    #        self.balance -= amount
+    #        self.save()
           
-           message = f"You loan repayment is {amount}, your new balance is {self.balance}"
-           status = 200
-       return message, status
+    #        message = f"You loan repayment is {amount}, your new balance is {self.balance}"
+    #        status = 200
+    #    return message, status
 
-    def buyAirtime(self, amount):
-       if amount <= 0:
-           message =  "Invalid amount"
-           status = 403
+    # def buyAirtime(self, amount):
+    #    if amount <= 0:
+    #        message =  "Invalid amount"
+    #        status = 403
       
-       elif amount < self.balance:
-           message =  "Insufficient balance"
-           status = 403
+    #    elif amount < self.balance:
+    #        message =  "Insufficient balance"
+    #        status = 403
       
-       else:
-           self.balance -= amount
-           self.save()
+    #    else:
+    #        self.balance -= amount
+    #        self.save()
           
-           message = f"You have purchesed artime worth {amount}, your airtime balance is {self.balance}"
-           status = 200
-       return message, status 
+    #        message = f"You have purchesed artime worth {amount}, your airtime balance is {self.balance}"
+    #        status = 200
+    #    return message, status 
 
 
 class Transaction(models.Model):
@@ -178,7 +178,7 @@ class Transaction(models.Model):
        ('withdraw', 'Withdrawal'),
        ('depo', 'Deposit'),
        ('trans', 'Transfer'))
-    transaction_type=models.CharField(max_length=10, choices=TRANSACTION_CHOICES,null=True)
+    transaction_type=models.CharField(max_length=100, choices=TRANSACTION_CHOICES,null=True)
     transaction_charge=models.IntegerField()
     transaction_date=models.DateTimeField(default = timezone.now)
     original_account=models.ForeignKey('Account', on_delete=models.CASCADE, related_name='Transaction_original_account')
@@ -187,46 +187,45 @@ class Transaction(models.Model):
 
 class Card(models.Model):
     date_Issued=models.DateTimeField(default=timezone.now)
-    card_name=models.CharField(max_length=20,null=True)
+    card_name=models.CharField(max_length=100,null=True)
     card_number=models.IntegerField()
     ISSUER_CHOICES=(
          ('m', 'Mastercard'),
          ('v', 'Visacard'))
-    card_type=models.CharField(max_length=10, choices=ISSUER_CHOICES,null=True)
+    card_type=models.CharField(max_length=100, choices=ISSUER_CHOICES,null=True)
     expiry_date=models.DateTimeField(default=timezone.now)
     STATUS_CHOICES = (
         ('d', 'Debit'),
         ('c', 'Credit'))
 
-    card_status= models.CharField(max_length=1, choices=STATUS_CHOICES,null=True)
+    card_status= models.CharField(max_length=100, choices=STATUS_CHOICES,null=True)
     cvv_security=models.IntegerField()
     wallet=models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name ='Card_wallet')
     account=models.ForeignKey(Account, on_delete=models.CASCADE, related_name ='Card_account')     
 
 class ThirdParty(models.Model):
     account=models.ForeignKey(Account, on_delete=models.CASCADE, related_name ='ThirdParty_account')
-    name=models. CharField(max_length=15,null=True)
-    thirdparty_id=models.CharField(max_length=10,null=True)
+    name=models. CharField(max_length=100,null=True)
+    thirdparty_id=models.CharField(max_length=100,null=True)
     phone_Number=models.IntegerField()
     currency=models.ForeignKey(Currency, on_delete=models.CASCADE, related_name ='ThirdParty_currency')
 
 
 class Notifications(models.Model):
-    notification_Id=models.CharField(max_length=25,null=True)
+    notification_Id=models.CharField(max_length=100,null=True)
     STATUS_CHOICES = (
         ('read', 'Read'),
         ('unread', 'Unread'))
 
-    status=models.CharField(max_length=12, choices=STATUS_CHOICES,null=True)
+    status=models.CharField(max_length=100, choices=STATUS_CHOICES,null=True)
     date=models.DateTimeField(default=timezone.now)
     time = models.DateTimeField(default=timezone.now)
     recipient=models.ForeignKey('User', on_delete=models.CASCADE, related_name ='Notifications_recipient')  
 
 
-class Receipt(models.Model):
-    
+class Receipt(models.Model): 
     receipt_date=models.DateTimeField(default=timezone.now)
-    receipt_number=models.CharField(max_length=25, null=True)
+    receipt_number=models.CharField(max_length=100, null=True)
     account=models.ForeignKey(Account, on_delete=models.CASCADE, related_name ='Receipts_account')
     total_Amount=models.IntegerField(default=0)
     transaction=models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name ='Receipts_transaction', null=True)
@@ -235,7 +234,7 @@ class Receipt(models.Model):
   
 class Loan(models.Model):
     loan_number=models.IntegerField()
-    loan_type=models.CharField(max_length=25, null=True)
+    loan_type=models.CharField(max_length=100, null=True)
     amount=models.IntegerField()
     date=models.DateTimeField(default=timezone.now)
     wallet=models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name ='Loan_wallet')

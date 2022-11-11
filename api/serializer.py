@@ -1,7 +1,6 @@
-from msilib.schema import Class
-from pyexpat import model
+
 from rest_framework import serializers
-from .models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, Transaction, User, Wallet
+from wallet.models import Account, Card, Currency, Loan, Notifications, Receipt, Reward, ThirdParty, Transaction, User, Wallet
 
 
 class UserSerializer(serializers.ModelSerializer):
