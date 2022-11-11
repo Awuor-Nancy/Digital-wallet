@@ -15,11 +15,12 @@
 <h2>Customer Registration</h2>
 
 <div class="card" style="width: 18rem;">
-<form method="POST">{% csrf_token %}
+<form method="POST">
+    {% csrf_token %}
 
 <!-- rendering a form -->
 {{ form.as_p }}
-<button type="submit" value="Register" class="btn btn-default">save</button>
+<button type="submit" value="Register" class="btn btn-primary">save</button>
 
 </form> 
 </div>
